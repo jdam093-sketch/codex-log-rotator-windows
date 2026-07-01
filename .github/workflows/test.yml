@@ -1,0 +1,29 @@
+name: Test
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  pester:
+    runs-on: windows-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Test with Windows PowerShell 5.1
+        shell: powershell
+        run: |
+          Install-Module Pester -RequiredVersion 4.10.1 -Scope CurrentUser -Force -SkipPublisherCheck
+          Import-Module Pester -RequiredVersion 4.10.1 -Force
+          Invoke-Pester ".\tests\codex-log-rotator.Tests.ps1" -EnableExit
+
+      - name: Test with PowerShell 7
+        shell: pwsh
+        run: |
+          Install-Module Pester -RequiredVersion 4.10.1 -Scope CurrentUser -Force -SkipPublisherCheck
+          Import-Module Pester -RequiredVersion 4.10.1 -Force
+          Invoke-Pester ".\tests\codex-log-rotator.Tests.ps1" -EnableExit

@@ -1,0 +1,9 @@
+*.log
+*.sqlite
+*.sqlite-*
+manifest.json
+CodexLogBackups/
+codex-log-backups/
+.env
+.env.*
+*.tmp
